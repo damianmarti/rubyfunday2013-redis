@@ -13,6 +13,18 @@ puts redis.get "#{al_pacino}:name"
 andy_garcia = "actors:http://data.linkedmdb.org/resource/actor/31813"
 puts redis.get "#{andy_garcia}:name"
 
+puts ""
+
+puts "Al Pacino movies"
+redis.smembers("#{al_pacino}:movies").each {|movie| puts redis.get "movies:#{movie}:name"}
+
+puts ""
+
+puts "Andy Garcia movies"
+redis.smembers("#{andy_garcia}:movies").each {|movie| puts redis.get "movies:#{movie}:name"}
+
+puts ""
+
 movies_al_pacino_andy_garcia = redis.sinter "#{al_pacino}:movies", "#{andy_garcia}:movies"
 
 puts "Movies donde actuan Al Pacino y Andy Garcia juntos"
